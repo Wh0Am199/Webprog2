@@ -29,14 +29,14 @@ function UserLogin($email, $password) {
 	return false;
 }
 
-function UserRegister($username, $firstName, $lastName, $email, $password, $address, $additionalAddress, $birthDate, $city, $state, $zip, $isAdmin) {
+function UserRegister($username, $firstName, $lastName, $email, $password, $address, $additionalAddress="", $birthDate, $city, $state, $zip, $isAdmin=0) {
 	$query = "SELECT uid FROM users WHERE email = :email";
 	$params = [ ':email' => $email ];
 
 	require_once DATABASE_CONTROLLER;
 	$record = getRecord($query, $params);
 	if(empty($record)) {
-		$query = "INSERT INTO users (username, firstName, lastName, email, password, address, additionalAddress, birthDate, city, state, zip, isAdmin) VALUES (:username, :first_name, :last_name, :email, :password, :address, :additionalAddress="", :birthDate, :city, :state, :zip, 0)";
+		$query = "INSERT INTO users (username, firstName, lastName, email, password, address, additionalAddress, birthDate, city, state, zip, isAdmin) VALUES (:username, :first_name, :last_name, :email, :password, :address, :additionalAddress, :birthDate, :city, :state, :zip, :isAdmin)";
 		$params = [
 			':username' => $username,
 			':first_name' => $firstName,
@@ -48,7 +48,8 @@ function UserRegister($username, $firstName, $lastName, $email, $password, $addr
 			':birthDate' => $birthDate,
 			':city' => $city,
 			':state' => $state,
-			':zip' => $zip
+			':zip' => $zip,
+			':isAdmin' => $isAdmin
 		];
 
 		if(executeDML($query, $params)) 
