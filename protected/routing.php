@@ -11,6 +11,9 @@
 				require_once PROTECTED_DIR.'user/register.php';
 				break;
 			
+			case 'login':
+				require_once PROTECTED_DIR.'user/login.php';
+				break;
 
 			default:
 				# code...
