@@ -18,9 +18,11 @@
   
 </head>
 <body>
-  <header></header>
-  <nav><?php require_once PROTECTED_DIR.'nav.php';?></nav>
-  <content><?php require_once PROTECTED_DIR.'routing.php';?></content>
-  <footer></footer>
+  <div>
+    <header><?php include_once PROTECTED_DIR.'header.php';?></header>
+    <nav><?php require_once PROTECTED_DIR.'nav.php';?></nav>
+    <content><?php require_once PROTECTED_DIR.'routing.php';?></content>
+    <footer></footer>
+  </div>
 </body>
 </html>
