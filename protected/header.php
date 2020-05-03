@@ -1,1 +1,1 @@
-header.php
+<img src="<?=PUBLIC_DIR.'img/weblogo.jpg'?>" alt="AnyCar">
