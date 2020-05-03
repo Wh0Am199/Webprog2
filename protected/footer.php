@@ -1,1 +1,1 @@
-footer.php
+<center><div class="col-sm-12"><hr>&copy; Copyright 2020 Bárdos Bálint</div></center>
