@@ -16,7 +16,7 @@
 				break;
 
 			default:
-				# code...
+				require_once PROTECTED_DIR.'home.php';
 				break;
 		}
 	}
