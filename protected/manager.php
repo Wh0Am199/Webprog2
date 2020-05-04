@@ -9,10 +9,10 @@ function UserLogout() {
 	header('Location: index.php');
 }
 
-function UserLogin($email, $password) {
-	$query = "SELECT uid, firstName, lastName, email, isAdmin FROM users WHERE email = :email AND password = :password";
+function UserLogin($username, $password) {
+	$query = "SELECT uid, username, firstName, lastName, email, isAdmin FROM users WHERE username = :username AND password = :password";
 	$params = [
-		':email' => $email,
+		':username' => $username,
 		':password' => sha1($password)
 	]; 
 
@@ -53,7 +53,7 @@ function UserRegister($username, $firstName, $lastName, $email, $password, $addr
 		];
 
 		if(executeDML($query, $params)) 
-			header('Location: index.php?P=login');
+			header('Location: index.php?page=login');
 	} 
 	return false;
 }
