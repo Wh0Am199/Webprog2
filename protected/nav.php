@@ -14,6 +14,7 @@
         <li><a href="#">Available Cars</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
+
       <?php if (!IsUserLoggedIn()) :?>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a href="index.php?page=login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -26,6 +27,13 @@
 	        <li><a href="index.php?page=logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 	      </ul>
   	  <?php endif;?>
+
+  	  <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1): ?>
+		  <ul class="nav navbar-nav navbar-right">
+	        <li><a href="index.php?page=addVehicle">Add Vehicle</a></li>
+	      </ul>
+	  <?php endif;?>
+
     </div>
   </div>
 </nav>
