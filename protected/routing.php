@@ -15,6 +15,10 @@
 				require_once PROTECTED_DIR.'user/login.php';
 				break;
 
+			case 'logout': 
+				IsUserLoggedIn() ? UserLogout() : header('Location: index.php'); 
+				break;
+
 			default:
 				require_once PROTECTED_DIR.'home.php';
 				break;
