@@ -10,8 +10,8 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.php?page=home">Home</a></li>
-        <li><a href="#">Available Cars</a></li>
+        <li><a href="index.php?page=home">Home</a></li>
+        <li><a href="index.php?page=vehicles">Available Cars</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
 

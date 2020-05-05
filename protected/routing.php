@@ -19,6 +19,10 @@
 				IsUserLoggedIn() ? UserLogout() : header('Location: index.php'); 
 				break;
 
+			case 'vehicles':
+				require_once PROTECTED_DIR.'vehicles/availableVehicles.php';
+				break;
+				
 			default:
 				require_once PROTECTED_DIR.'home.php';
 				break;
