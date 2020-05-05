@@ -6,7 +6,7 @@ function IsUserLoggedIn() {
 function UserLogout() {
 	session_unset();
 	session_destroy();
-	header('Location: index.php');
+	header('Location: index.php?page=home');
 }
 
 function UserLogin($username, $password) {
@@ -24,7 +24,7 @@ function UserLogin($username, $password) {
 		$_SESSION['lastName'] = $record['lastName'];
 		$_SESSION['email'] = $record['email'];
 		$_SESSION['isAdmin'] = $record['isAdmin'];
-		header('Location: index.php');
+		header('Location: index.php?page=home');
 	}
 	return false;
 }
