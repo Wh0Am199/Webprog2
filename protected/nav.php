@@ -12,7 +12,7 @@
       <ul class="nav navbar-nav">
         <li><a href="index.php?page=home">Home</a></li>
         <li><a href="index.php?page=vehicles">Available Cars</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="mailto:balintb99@gmail.com?subject=New customer message from:">Contact</a></li>
       </ul>
 
       <?php if (!IsUserLoggedIn()) :?>
