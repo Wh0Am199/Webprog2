@@ -1,6 +1,6 @@
 <?php
   require_once DATABASE_CONTROLLER;
-  $query = "SELECT image, brand, carType, plateNumber, fuelType, manufacturingDate, price FROM vehicles";
+  $query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price FROM vehicles";
   $vehicles = getList($query);
 ?>
 <table class="table">
@@ -19,7 +19,7 @@
     <?php foreach ($vehicles as $v): ?>  
       <tr>
         <td><?php echo "<img src=".$v['image']." height='200' width='200' "?></td>
-        <td><?=$v['brand']?></td>
+        <td><?php echo "<a href='?page=vehicleProfile&id=".$v['id']."'>".$v['brand']."</a>"?></td>
         <td><?=$v['carType']?></td>
         <td><?=$v['plateNumber']?></td>
         <td><?=$v['fuelType']?></td>
