@@ -21,33 +21,33 @@
 		            'manufDate' => $_POST['manufDate'],
 		            'price' => $_POST['price']
 		          ];
+
+		        if (empty($updateData['brand']) || empty($updateData['type']) || empty($updateData['platenumber']) || empty($updateData['manufDate']) || empty($updateData['price'])){
+			    	echo "<h1>Missing data!</h1>";
+		        } else if ($updateData['price'] < 0) {
+			    	echo "<h1>Price can't be a negative number!</h1>";
+			    } else if ($updateData['manufDate'] < 0) {
+			    	echo "<h1>Manufacturing Date can't be a negative number!</h1>";
+			    } else {
+			    	$query = "UPDATE vehicles SET brand = :brand, carType = :carType, plateNumber = :plateNumber, fuelType = :fuelType, manufacturingDate = :manufacturingDate, price = :price WHERE id = :id";
+			    	$params = [
+			    		':brand' => $updateData['brand'],
+		                ':carType' => $updateData['type'],
+		                ':plateNumber' => $updateData['platenumber'],
+		                ':fuelType' => $updateData['fueltype'],
+		                ':manufacturingDate' => $updateData['manufDate'],
+		                ':price' => $updateData['price'],
+		                ':id' => $_GET['id']
+			    	];
+
+			    	if (!executeDML($query, $params)) {
+			    		echo "<h1>Error while updating data!</h1>";
+			    	} else {
+			    		echo "<script> window.alert('Succesful Update!'); window.location.href='index.php?page=vehicles';</script>";
+			    	}
+			    	
+			    }	
 		    }
-
-		    if (empty($updateData['brand']) || empty($updateData['type']) || empty($updateData['platenumber']) || empty($updateData['manufDate']) || empty($updateData['price'])) {
-		    	echo "<h1>Missing data!</h1>";
-		    } else if ($updateData['price'] < 0) {
-		    	echo "<h1>Price can't be a negative number!</h1>";
-		    } else if ($updateData['manufDate'] < 0) {
-		    	echo "<h1>Manufacturing Date can't be a negative number!</h1>";
-		    } else {
-		    	$query = "UPDATE vehicles SET brand = :brand, carType = :carType, plateNumber = :plateNumber, fuelType = :fuelType, manufacturingDate = :manufacturingDate, price = :price WHERE id = :id";
-		    	$params = [
-		    		':brand' => $updateData['brand'],
-	                ':carType' => $updateData['type'],
-	                ':plateNumber' => $updateData['platenumber'],
-	                ':fuelType' => $updateData['fueltype'],
-	                ':manufacturingDate' => $updateData['manufDate'],
-	                ':price' => $updateData['price'],
-	                ':id' => $_GET['id']
-		    	];
-
-		    	if (!executeDML($query, $params)) {
-		    		echo "<h1>Error while updating data!</h1>";
-		    	}
-		    	else {
-		    		header ("Location: index.php?page=vehicleProfile&id=".$_GET['id']."");
-		    	}
-		    }	
 		}
 	}
 
