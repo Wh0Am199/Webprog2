@@ -101,7 +101,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="inputDetails">Details</label><br>
-      <textarea id="inputDetails" rows="5" cols="130" name="details" placeholder="Write the details of the vehicle here.."><?=$vehicle['details']?></textarea>
+      <textarea id="inputDetails" rows="5" cols="130" name="details" placeholder="Write the details of the vehicle here.." <?php echo !IsUserLoggedIn() ? 'readonly' : ''?> ><?=$vehicle['details']?></textarea>
     </div>
 	<?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
 	    <div class="form-group col-md-2">
