@@ -6,12 +6,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <?php if (!IsUserLoggedIn()) :?>
+      	<a class="navbar-brand" href="index.php?page=login">Profile</a>
+      <?php else:?>
+      	<a class="navbar-brand" href="index.php?page=profile"><?=$_SESSION['lastName']?> <?=$_SESSION['firstName']?></a>
+      <?php endif;?>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="index.php?page=home">Home</a></li>
-        <li><a href="index.php?page=vehicles">Available Cars</a></li>
+        <li><a href="index.php?page=vehicles">Showroom</a></li>
         <li><a href="mailto:balintb99@gmail.com?subject=New customer message from:">Contact</a></li>
       </ul>
 
