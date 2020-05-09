@@ -23,24 +23,30 @@
 
           if(in_array($picture_type, $allowed_type)) {
               $path = PUBLIC_DIR.'db_images/'.$picture_name;
-          
-              $query = "INSERT INTO vehicles (image, brand, carType, plateNumber, fuelType, manufacturingDate, price) VALUES (:image, :brand, :carType, :plateNumber, :fuelType, :manufacturingDate, :price)";
-              $params = [
-                ':image' => $path,
-                ':brand' => $addData['brand'],
-                ':carType' => $addData['type'],
-                ':plateNumber' => $addData['platenumber'],
-                ':fuelType' => $addData['fueltype'],
-                ':manufacturingDate' => $addData['manufDate'],
-                ':price' => $addData['price']
-              ];
 
-              if (!executeDML($query, $params)) {
-                  echo '<h1><font color="red">Error while inserting vehicle!</font></h1>';
-              }
-              else{
-                  move_uploaded_file($picture_tmp, $path);
-              }                
+              if (empty($addData['brand']) || empty($addData['type']) || empty($addData['platenumber']) || empty($addData['fueltype']) || empty($addData['manufDate']) || empty($addData['price'])) {
+                echo "<h1>Missing data!</h1>";
+              } else {
+
+                $query = "INSERT INTO vehicles (image, brand, carType, plateNumber, fuelType, manufacturingDate, price) VALUES (:image, :brand, :carType, :plateNumber, :fuelType, :manufacturingDate, :price)";
+                $params = [
+                  ':image' => $path,
+                  ':brand' => $addData['brand'],
+                  ':carType' => $addData['type'],
+                  ':plateNumber' => $addData['platenumber'],
+                  ':fuelType' => $addData['fueltype'],
+                  ':manufacturingDate' => $addData['manufDate'],
+                  ':price' => $addData['price']
+                ];
+
+                if (!executeDML($query, $params)) {
+                    echo '<h1><font color="red">Error while inserting vehicle!</font></h1>';
+                }
+                else{
+                    move_uploaded_file($picture_tmp, $path);
+                }     
+
+              }                        
           }
         }
       
