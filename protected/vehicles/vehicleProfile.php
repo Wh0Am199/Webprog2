@@ -3,7 +3,7 @@
 
 	if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
 		
-		$query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price FROM vehicles WHERE id = :id";
+		$query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price, details FROM vehicles WHERE id = :id";
 		$params = [
 			':id' => $_GET['id']
 		];
@@ -19,17 +19,18 @@
 		            'platenumber' => $_POST['platenumber'],
 		            'fueltype' => $_POST['fueltype'],
 		            'manufDate' => $_POST['manufDate'],
-		            'price' => $_POST['price']
+		            'price' => $_POST['price'],
+		            'details' => $_POST['details']
 		          ];
 
-		        if (empty($updateData['brand']) || empty($updateData['type']) || empty($updateData['platenumber']) || empty($updateData['manufDate']) || empty($updateData['price'])){
+		        if (empty($updateData['brand']) || empty($updateData['type']) || empty($updateData['platenumber']) || empty($updateData['manufDate']) || empty($updateData['price']) || empty($updateData['details'])){
 			    	echo "<h1>Missing data!</h1>";
 		        } else if ($updateData['price'] < 0) {
 			    	echo "<h1>Price can't be a negative number!</h1>";
 			    } else if ($updateData['manufDate'] < 0) {
 			    	echo "<h1>Manufacturing Date can't be a negative number!</h1>";
 			    } else {
-			    	$query = "UPDATE vehicles SET brand = :brand, carType = :carType, plateNumber = :plateNumber, fuelType = :fuelType, manufacturingDate = :manufacturingDate, price = :price WHERE id = :id";
+			    	$query = "UPDATE vehicles SET brand = :brand, carType = :carType, plateNumber = :plateNumber, fuelType = :fuelType, manufacturingDate = :manufacturingDate, price = :price, details = :details WHERE id = :id";
 			    	$params = [
 			    		':brand' => $updateData['brand'],
 		                ':carType' => $updateData['type'],
@@ -37,6 +38,7 @@
 		                ':fuelType' => $updateData['fueltype'],
 		                ':manufacturingDate' => $updateData['manufDate'],
 		                ':price' => $updateData['price'],
+		                ':details' => $updateData['details'],
 		                ':id' => $_GET['id']
 			    	];
 
@@ -96,6 +98,10 @@
     <div class="form-group col-md-4">
       <label for="inputPrice">Price</label>
       <input type="text" class="form-control" id="inputPrice" placeholder="1000 €" name="price" value='<?=$vehicle['price']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputDetails">Details</label><br>
+      <textarea id="inputDetails" rows="5" cols="130" name="details" placeholder="Write the details of the vehicle here.."><?=$vehicle['details']?></textarea>
     </div>
 	<?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
 	    <div class="form-group col-md-2">

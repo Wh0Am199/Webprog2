@@ -12,7 +12,8 @@
             'platenumber' => $_POST['platenumber'],
             'fueltype' => $_POST['fueltype'],
             'manufDate' => $_POST['manufDate'],
-            'price' => $_POST['price']
+            'price' => $_POST['price'],
+            'details' => $_POST['details']
           ];
 
           $picture_tmp = $_FILES['vehicleimg']['tmp_name'];
@@ -24,11 +25,11 @@
           if(in_array($picture_type, $allowed_type)) {
               $path = PUBLIC_DIR.'db_images/'.$picture_name;
 
-              if (empty($addData['brand']) || empty($addData['type']) || empty($addData['platenumber']) || empty($addData['fueltype']) || empty($addData['manufDate']) || empty($addData['price'])) {
+              if (empty($addData['brand']) || empty($addData['type']) || empty($addData['platenumber']) || empty($addData['fueltype']) || empty($addData['manufDate']) || empty($addData['price']) || empty($addData['details'])) {
                 echo "<h1>Missing data!</h1>";
               } else {
 
-                $query = "INSERT INTO vehicles (image, brand, carType, plateNumber, fuelType, manufacturingDate, price) VALUES (:image, :brand, :carType, :plateNumber, :fuelType, :manufacturingDate, :price)";
+                $query = "INSERT INTO vehicles (image, brand, carType, plateNumber, fuelType, manufacturingDate, price, details) VALUES (:image, :brand, :carType, :plateNumber, :fuelType, :manufacturingDate, :price, :details)";
                 $params = [
                   ':image' => $path,
                   ':brand' => $addData['brand'],
@@ -36,7 +37,8 @@
                   ':plateNumber' => $addData['platenumber'],
                   ':fuelType' => $addData['fueltype'],
                   ':manufacturingDate' => $addData['manufDate'],
-                  ':price' => $addData['price']
+                  ':price' => $addData['price'],
+                  ':details' => $addData['details']
                 ];
 
                 if (!executeDML($query, $params)) {
@@ -99,6 +101,10 @@
     <div class="form-group col-md-6">
       <label for="inputPrice">Price</label>
       <input type="text" class="form-control" id="inputPrice" placeholder="1000 €" name="price">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputDetails">Details</label><br>
+      <textarea id="inputDetails" rows="5" cols="130" name="details" placeholder="Write the details of the vehicle here.."></textarea>
     </div>
     <div class="form-group col-md-2">
       <button type="submit" class="btn btn-primary btn-block" name="addVehicle">Add Vehicle</button>
