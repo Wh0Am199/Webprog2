@@ -22,6 +22,10 @@
 			case 'vehicles':
 				require_once PROTECTED_DIR.'vehicles/availableVehicles.php';
 				break;
+				
+			case 'vehicleProfile':
+				require_once PROTECTED_DIR.'vehicles/vehicleProfile.php';
+				break;
 
 			case 'addVehicle':
 				require_once PROTECTED_DIR.'vehicles/addVehicle.php';
