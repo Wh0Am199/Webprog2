@@ -6,7 +6,6 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Image</th>
       <th scope="col">Brand</th>
       <th scope="col">Car Type</th>
@@ -17,12 +16,9 @@
     </tr>
   </thead>
   <tbody>
-    <?php  $i = 0; ?>
-    <?php foreach ($vehicles as $v): ?>
-      <?php $i++; ?>    
+    <?php foreach ($vehicles as $v): ?>  
       <tr>
-        <th scope="row"><?php $i++;?></th>
-        <td><?=$v['image']?></td>
+        <td><?php echo "<img src=".$v['image']." height='200' width='200' "?></td>
         <td><?=$v['brand']?></td>
         <td><?=$v['carType']?></td>
         <td><?=$v['plateNumber']?></td>
