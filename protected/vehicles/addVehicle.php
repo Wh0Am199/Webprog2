@@ -3,64 +3,63 @@
 
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addVehicle'])) {
 
+    $image = "";
+
     if (isset($_POST['vehicleimg'])) {
+      $image = $_POST['vehicleimg'];
+    }
       
-      $addData = [
-            'vehicleimg' => $_POST['vehicleimg'],
-            'brand' => $_POST['brand'],
-            'type' => $_POST['type'],
-            'platenumber' => $_POST['platenumber'],
-            'fueltype' => $_POST['fueltype'],
-            'manufDate' => $_POST['manufDate'],
-            'price' => $_POST['price'],
-            'details' => $_POST['details']
+    $addData = [
+      'vehicleimg' => $image,
+      'brand' => $_POST['brand'],
+      'type' => $_POST['type'],
+      'platenumber' => $_POST['platenumber'],
+      'fueltype' => $_POST['fueltype'],
+      'manufDate' => $_POST['manufDate'],
+      'price' => $_POST['price'],
+      'details' => $_POST['details']
+    ];
+
+    $picture_tmp = $_FILES['vehicleimg']['tmp_name'];
+    $picture_name = $_FILES['vehicleimg']['name'];
+    $picture_type = $_FILES['vehicleimg']['type'];
+
+    $allowed_type = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg');
+
+    if(in_array($picture_type, $allowed_type)) {
+        $path = PUBLIC_DIR.'db_images/'.$picture_name;
+
+        if (empty($addData['brand']) || empty($addData['type']) || empty($addData['platenumber']) || empty($addData['fueltype']) || empty($addData['manufDate']) || empty($addData['price']) || empty($addData['details'])) {
+          echo "<h1>Missing data!</h1>";
+        } else {
+
+          $query = "INSERT INTO vehicles (image, brand, carType, plateNumber, fuelType, manufacturingDate, price, details) VALUES (:image, :brand, :carType, :plateNumber, :fuelType, :manufacturingDate, :price, :details)";
+          $params = [
+            ':image' => $path,
+            ':brand' => $addData['brand'],
+            ':carType' => $addData['type'],
+            ':plateNumber' => $addData['platenumber'],
+            ':fuelType' => $addData['fueltype'],
+            ':manufacturingDate' => $addData['manufDate'],
+            ':price' => $addData['price'],
+            ':details' => $addData['details']
           ];
 
-          $picture_tmp = $_FILES['vehicleimg']['tmp_name'];
-          $picture_name = $_FILES['vehicleimg']['name'];
-          $picture_type = $_FILES['vehicleimg']['type'];
-
-          $allowed_type = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg');
-
-          if(in_array($picture_type, $allowed_type)) {
-              $path = PUBLIC_DIR.'db_images/'.$picture_name;
-
-              if (empty($addData['brand']) || empty($addData['type']) || empty($addData['platenumber']) || empty($addData['fueltype']) || empty($addData['manufDate']) || empty($addData['price']) || empty($addData['details'])) {
-                echo "<h1>Missing data!</h1>";
-              } else {
-
-                $query = "INSERT INTO vehicles (image, brand, carType, plateNumber, fuelType, manufacturingDate, price, details) VALUES (:image, :brand, :carType, :plateNumber, :fuelType, :manufacturingDate, :price, :details)";
-                $params = [
-                  ':image' => $path,
-                  ':brand' => $addData['brand'],
-                  ':carType' => $addData['type'],
-                  ':plateNumber' => $addData['platenumber'],
-                  ':fuelType' => $addData['fueltype'],
-                  ':manufacturingDate' => $addData['manufDate'],
-                  ':price' => $addData['price'],
-                  ':details' => $addData['details']
-                ];
-
-                if (!executeDML($query, $params)) {
-                    echo '<h1><font color="red">Error while inserting vehicle!</font></h1>';
-                }
-                else{
-                    move_uploaded_file($picture_tmp, $path);
-                }     
-
-              }                        
+          if (!executeDML($query, $params)) {
+              echo '<h1><font color="red">Error while inserting vehicle!</font></h1>';
           }
-        }
-      
+          else{
+              move_uploaded_file($picture_tmp, $path);
+              header ('Location: index.php?page=vehicles');
+          }
+
+      }                        
     }
-
-    
-
-  
+  }  
 ?>
 
 
-<form method="POST" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
   <div class="col-sm-12">
       <h4><small>Insert a new car to the showroom!</small></h4>
       <hr>

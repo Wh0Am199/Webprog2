@@ -33,11 +33,11 @@
         <?php if ($v['isReserved'] == 1) :?>
           <td><a href=""><button type="button" class="btn btn-primary btn-block" name="sold" disabled>SOLD</button></a></td>
         <?php else :?>
-          <td><a href="?page=reservation"><button type="button" class="btn btn-primary btn-block" name="reserve">Reserve</button></a></td>
+          <td><a href='?page=reservation&id=<?=$v['id']?>'><button type="button" class="btn btn-primary btn-block" name="reserve">Reserve</button></a></td>
         <?php endif;?>
 
         <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
-          <td><a href=""><button type="button" class="btn btn-primary btn-block" name="delete">Delete</button></a></td>
+          <td><a href='?page=delete&id=<?=$v['id']?>'><button type="button" class="btn btn-primary btn-block" name="delete">Delete</button></a></td>
         <?php endif;?>
 
       </tr>
