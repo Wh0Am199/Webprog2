@@ -27,17 +27,21 @@
 			case 'ownReservations':
 				require_once PROTECTED_DIR.'user/ownReservations.php';
 				break;
+
+			case 'addVehicle':
+				require_once PROTECTED_DIR.'vehicles/addVehicle.php';
+				break;
 				
+			case 'delete':
+				require_once PROTECTED_DIR.'vehicles/deleteVehicle.php';
+				break;
+
 			case 'vehicles':
 				require_once PROTECTED_DIR.'vehicles/availableVehicles.php';
 				break;
 
 			case 'vehicleProfile':
 				require_once PROTECTED_DIR.'vehicles/vehicleProfile.php';
-				break;
-
-			case 'addVehicle':
-				require_once PROTECTED_DIR.'vehicles/addVehicle.php';
 				break;
 
 			default:
