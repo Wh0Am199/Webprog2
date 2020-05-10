@@ -40,7 +40,7 @@
 
       <?php if (IsUserLoggedIn()) :?>
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="index.php?page=reservations">My reservations</a></li>
+          <li><a href="index.php?page=ownReservations">My reservations</a></li>
       </ul>
       <?php endif;?>
     </div>
