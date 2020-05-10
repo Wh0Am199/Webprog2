@@ -1,7 +1,11 @@
 <?php
   require_once DATABASE_CONTROLLER;
-  $query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price FROM vehicles AS v INNER JOIN reserved_vehicles rv ON v.id = rv.vehicleid INNER JOIN users ON rv.uid = users.uid";
-  $vehicles = getList($query);
+  $query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price FROM vehicles AS v INNER JOIN reserved_vehicles rv ON v.id = rv.vehicleid INNER JOIN users ON rv.uid = users.uid WHERE rv.uid = :id";
+  $params = [
+    ':id' => $_SESSION['uid']
+  ];
+
+  $vehicles = getList($query, $params);
 ?>
 
 <table class="table">
