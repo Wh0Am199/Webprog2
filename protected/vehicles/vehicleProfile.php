@@ -3,7 +3,7 @@
 
 	if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
 		
-		$query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price, details FROM vehicles WHERE id = :id";
+		$query = "SELECT id, image, brand, carType, plateNumber, fuelType, manufacturingDate, price, details, isReserved FROM vehicles WHERE id = :id";
 		$params = [
 			':id' => $_GET['id']
 		];
@@ -65,15 +65,15 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Brand</label>
-      <input type="text" class="form-control" id="inputBrand" placeholder="Car Brand" name="brand" value='<?=$vehicle['brand']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+      <input type="text" class="form-control" id="inputBrand" placeholder="Car Brand" name="brand" value='<?=$vehicle['brand']?>' <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?>>
     </div>
     <div class="form-group col-md-4">
       <label>Type</label>
-      <input type="text" class="form-control" id="inputType" placeholder="Type of the car" name="type" value='<?=$vehicle['carType']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+      <input type="text" class="form-control" id="inputType" placeholder="Type of the car" name="type" value='<?=$vehicle['carType']?>' <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?>>
     </div>
     <div class="form-group col-md-4">
       <label for="inputPlateNumber">Platenumber</label>
-      <input type="text" class="form-control" id="inputPlateNumber" placeholder="Platenumber" name="platenumber" value='<?=$vehicle['plateNumber']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+      <input type="text" class="form-control" id="inputPlateNumber" placeholder="Platenumber" name="platenumber" value='<?=$vehicle['plateNumber']?>' <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?>>
     </div>
     <div class="form-group col-md-4">
       <label for="inputFuelType">Fuel Type</label>
@@ -88,20 +88,20 @@
 	        <option>Hybrid</option>
       	</select>
       <?php else :?>
-      	<input type="text" class="form-control" id="inputFuelType" name="platenumber" value='<?=$vehicle['fuelType']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+      	<input type="text" class="form-control" id="inputFuelType" name="platenumber" value='<?=$vehicle['fuelType']?>' <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?>>
       <?php endif;?>
     </div>
     <div class="form-group col-md-4">
       <label for="inputManufDate">Manufacturing Date</label>
-      <input type="text" class="form-control" id="inputManufDate" placeholder="yyyy" name="manufDate" value='<?=$vehicle['manufacturingDate']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+      <input type="text" class="form-control" id="inputManufDate" placeholder="yyyy" name="manufDate" value='<?=$vehicle['manufacturingDate']?>' <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?>>
     </div>
     <div class="form-group col-md-4">
       <label for="inputPrice">Price</label>
-      <input type="text" class="form-control" id="inputPrice" placeholder="1000 €" name="price" value='<?=$vehicle['price']?>' <?php echo !IsUserLoggedIn() ? 'readonly' : ''?>>
+      <input type="text" class="form-control" id="inputPrice" placeholder="1000 €" name="price" value='<?=$vehicle['price']?>' <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?>>
     </div>
     <div class="form-group col-md-6">
       <label for="inputDetails">Details</label><br>
-      <textarea id="inputDetails" rows="5" cols="130" name="details" placeholder="Write the details of the vehicle here.." <?php echo !IsUserLoggedIn() ? 'readonly' : ''?> ><?=$vehicle['details']?></textarea>
+      <textarea id="inputDetails" rows="5" cols="130" name="details" placeholder="Write the details of the vehicle here.." <?php echo !IsUserLoggedIn() || $_SESSION['isAdmin'] != 1 ? 'readonly' : ''?> ><?=$vehicle['details']?></textarea>
     </div>
 	<?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
 	    <div class="form-group col-md-2">
