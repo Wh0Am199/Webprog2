@@ -13,9 +13,11 @@
       <th scope="col">Fuel Type</th>
       <th scope="col">Manufacturing Date</th>
       <th scope="col">Price</th>
-      <th scope="col">Reserve Car</th>
-      <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
-        <th scope="col">Delete Car</th>
+      <?php if (IsUserLoggedIn()) :?>
+        <th scope="col">Reserve Car</th>
+        <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
+          <th scope="col">Delete Car</th>
+        <?php endif;?>
       <?php endif;?>
     </tr>
   </thead>
@@ -30,14 +32,16 @@
         <td><?=$v['manufacturingDate']?></td>
         <td><?=$v['price']?> $</td>
 
-        <?php if ($v['isReserved'] == 1) :?>
-          <td><a href=""><button type="button" class="btn btn-primary btn-block" name="sold" disabled>SOLD</button></a></td>
-        <?php else :?>
-          <td><a href='?page=reservation&id=<?=$v['id']?>'><button type="button" class="btn btn-primary btn-block" name="reserve">Reserve</button></a></td>
-        <?php endif;?>
+        <?php if (IsUserLoggedIn()) :?>
+          <?php if ($v['isReserved'] == 1) :?>
+            <td><a href=""><button type="button" class="btn btn-primary btn-block" name="sold" disabled>SOLD</button></a></td>
+          <?php else :?>
+            <td><a href='?page=reservation&id=<?=$v['id']?>'><button type="button" class="btn btn-primary btn-block" name="reserve">Reserve</button></a></td>
+          <?php endif;?>
 
-        <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
-          <td><a href='?page=delete&id=<?=$v['id']?>'><button type="button" class="btn btn-primary btn-block" name="delete">Delete</button></a></td>
+          <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) :?>
+            <td><a href='?page=delete&id=<?=$v['id']?>'><button type="button" class="btn btn-primary btn-block" name="delete">Delete</button></a></td>
+          <?php endif;?>
         <?php endif;?>
 
       </tr>
