@@ -8,9 +8,46 @@
 
 	$user = getRecord($query, $params);
 
+	if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editUser'])) {
+		$updateData = [
 
+		  'firstname' => $_POST['firstname'],
+		  'lastname' => $_POST['lastname'],
+		  'address' => $_POST['address'],
+		  'birthdate' => $_POST['birthdate'],
+		  'city' => $_POST['city'],
+		  'state' => $_POST['state'],
+		  'zip' => $_POST['zip']
+
+		];
+
+		if (empty($updateData['firstname']) || empty($updateData['lastname']) || empty($updateData['address']) || empty($updateData['birthdate']) || empty($updateData['city']) || empty($updateData['state']) || empty($updateData['zip'])) {
+		  echo "<h1>Missing data!</h1>";
+		} else {
+
+			$query = "UPDATE users SET firstName = :firstName, lastName = :lastName, address = :address, birthDate = :birthDate, city = :city, state = :state, zip = :zip WHERE uid = :id";
+			$params = [
+				':firstName' => $updateData['firstname'],
+				':lastName' => $updateData['lastname'],
+				':address' => $updateData['address'],
+				':birthDate' => $updateData['birthdate'],
+				':city' => $updateData['city'],
+				':state' => $updateData['state'],
+				':zip' => $updateData['zip'],
+				':id' => $_SESSION['uid']
+			];
+
+			if (!executeDML($query, $params)) {
+				echo "<h1>Error while updating data!</h1>";
+			}
+			else {
+				header ('Location: index.php?page=home');
+			}
+
+		}
+
+  	}
 ?>
-
 
 <form method="POST">
   <div class="col-sm-12">
@@ -26,18 +63,10 @@
       <label>Last Name</label>
       <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="lastname" value="<?=$_SESSION['lastName']?>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="inputEmail4">Email</label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" value="<?=$_SESSION['email']?>">
-    </div>
   </div>
   <div class="form-group col-md-6">
     <label for="inputAddress">Address</label>
     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address" value="<?=$user['address']?>">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="inputAddress2">Additional details of address</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, floor etc..." name="additionaladdress" value="<?=$user['additionalAddress']?>">
   </div>
   <div class="form-group col-md-6">
    <label>Birth Date</label>
@@ -77,6 +106,10 @@
     <div class="form-group col-md-1">
       <label for="inputZip">Zip</label>
       <input type="text" class="form-control" id="inputZip" name="zip" value="<?=$user['zip']?>">
+    </div>
+    <div class="form-group col-md-2">
+      <br>
+      <button type="submit" class="btn btn-primary btn-block" name="editUser">Edit</button>
     </div>
   </div>
 </form>
