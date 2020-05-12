@@ -23,6 +23,10 @@
 			case 'reservation':
 				require_once PROTECTED_DIR.'user/reservation.php';
 				break;
+				
+			case 'profile':
+				require_once PROTECTED_DIR.'user/profile.php';
+				break;
 
 			case 'ownReservations':
 				require_once PROTECTED_DIR.'user/ownReservations.php';

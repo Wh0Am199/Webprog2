@@ -1,6 +1,7 @@
 <?php 
   session_start();
   require_once 'protected/config.php';
+  require_once PROTECTED_DIR.'manager.php';
 
 ?>
 
@@ -22,7 +23,7 @@
     <header><?php include_once PROTECTED_DIR.'header.php';?></header>
     <nav><?php require_once PROTECTED_DIR.'nav.php';?></nav>
     <content><?php require_once PROTECTED_DIR.'routing.php';?></content>
-    <footer></footer>
+    <footer><?php include_once PROTECTED_DIR.'footer.php';?></footer>
   </div>
 </body>
 </html>
