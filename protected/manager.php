@@ -30,8 +30,11 @@ function UserLogin($username, $password) {
 }
 
 function UserRegister($username, $firstName, $lastName, $email, $password, $address, $additionalAddress="", $birthDate, $city, $state, $zip, $isAdmin=0) {
-	$query = "SELECT uid FROM users WHERE email = :email";
-	$params = [ ':email' => $email ];
+	$query = "SELECT uid FROM users WHERE email = :email OR username = :username";
+	$params = [ 
+		':email' => $email,
+		':username' => $username
+	 ];
 
 	require_once DATABASE_CONTROLLER;
 	$record = getRecord($query, $params);

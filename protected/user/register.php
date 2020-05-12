@@ -1,7 +1,5 @@
 <?php
-  $query = "SELECT username FROM users";
   require_once DATABASE_CONTROLLER;
-  $uname = getRecord($query);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $registerData = [
@@ -27,10 +25,8 @@
       echo "<h1>Wrong email format!</h1>";
     } else if ($registerData['password'] != $registerData['confirmpassword']) {
       echo "<h1>Your passwords don't match!</h1>";
-    } else if ($uname == $registerData['username']) {
-      echo "<h1>This username is already in use!</h1>";
     } else if (!UserRegister($registerData['username'], $registerData['firstname'], $registerData['lastname'], $registerData['email'], $registerData['password'], $registerData['address'], $registerData['additionaladdress'], $registerData['birthdate'], $registerData['city'], $registerData['state'], $registerData['zip'])) {
-      echo "<h1>Error while register you in the system!</h1>";
+      echo "<h1>Error while registering you in the system! This email or username is already in use!</h1>";
     }
 
     $registerData['password'] = $registerData['confirmpassword'] = "";
